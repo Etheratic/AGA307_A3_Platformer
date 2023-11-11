@@ -20,11 +20,13 @@ public class PlayerMovement : GameBehaviour
     private Vector3 velocity;
     private bool isGrounded;
 
+    
+
    
 
     private void Start()
     {
-        
+       
     }
 
     void Update()
@@ -54,18 +56,7 @@ public class PlayerMovement : GameBehaviour
 
     }
 
-    //triying to get the drop through panels working
-
-    //private void OnCollisionStay(Collision collision)
-    //{
-
-    //    if(collision.gameObject.CompareTag("DropThroughPlatform") && (Input.GetKeyDown(KeyCode.S)))
-    //    {
-    //        collision.gameObject.GetComponent<Collider>().enabled = false;
-    //    }
-
-        
-    //}
+   
 }
 
        
