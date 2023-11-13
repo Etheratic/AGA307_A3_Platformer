@@ -28,6 +28,8 @@ public class JumpPad : GameBehaviour
     {
         print("Working :)");
         _PM.Jump(jumpBoostStrength);
+
+        Destroy(this.gameObject);
     }
 
         

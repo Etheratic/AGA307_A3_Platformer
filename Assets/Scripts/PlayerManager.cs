@@ -1,17 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
- 
-public enum GameState
+
+public class PlayerManager : MonoBehaviour
 {
-    Title, Playing, GameOver, Win, Paused
-}
-public class GameManager : Singleton<GameManager> 
-{
-    public GameState gameState;
-    public int score = 0;
-    private int scoreMultiplier;
-    
+    public int health;
 
     // Start is called before the first frame update
     void Start()
@@ -24,7 +17,4 @@ public class GameManager : Singleton<GameManager>
     {
         
     }
-
-
-
 }
