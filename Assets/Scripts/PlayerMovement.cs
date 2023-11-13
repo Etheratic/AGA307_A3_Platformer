@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : GameBehaviour
+public class PlayerMovement : Singleton<PlayerMovement>
 {
 
 
@@ -14,11 +14,15 @@ public class PlayerMovement : GameBehaviour
 
     //know when we are touching the ground
     public Transform groundCheck;
+    public Transform roofCheck;
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
 
-    private Vector3 velocity;
-    private bool isGrounded;
+
+
+    public Vector3 velocity;
+    public bool isGrounded;
+    public bool isRoof;
 
     
 
@@ -33,8 +37,16 @@ public class PlayerMovement : GameBehaviour
     {
         //checks if we are touching the ground
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+        isRoof = Physics.CheckSphere(roofCheck.position, groundDistance, groundMask);
 
-        if (isGrounded && velocity.y < 0)
+        if ((isGrounded && velocity.y < 0) || (isRoof && velocity.y > 0))
+        {
+            velocity.y = -2f;
+
+        }
+           
+
+        if(velocity.y < -50)
             velocity.y = -2f;
 
         //checks input for player
@@ -45,9 +57,13 @@ public class PlayerMovement : GameBehaviour
         controller.Move(move * speed * Time.deltaTime);
 
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            Jump(jumpHeight);
 
-        velocity.y += gravity * Time.deltaTime;
+        if (isGrounded == false)
+            velocity.y += gravity * Time.deltaTime;
+
+
+        
         controller.Move(velocity * Time.deltaTime);
 
        
@@ -56,8 +72,22 @@ public class PlayerMovement : GameBehaviour
 
     }
 
-  
-    
+    public void Jump(float _jumpHeight)
+    {
+        velocity.y = Mathf.Sqrt(_jumpHeight * -2f * gravity);
+
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Ground" || collision.gameObject.tag == "DropThroughPlatform")
+        {
+            print("collision");
+            velocity.y = 0;
+        }
+    }
+
+
 
 }
 

@@ -19,11 +19,11 @@ public class CameraMovement : GameBehaviour
     // Update is called once per frame
     void Update()
     {
-        cameraSpeed += cameraSpeedMultiplier;
-        if (Input.GetKeyDown(KeyCode.O))
-            {
-            CameraMoveUp();
-        }
+        //cameraSpeed += cameraSpeedMultiplier;
+        //if (Input.GetKeyDown(KeyCode.O))
+        //    {
+        //    CameraMoveUp();
+        //}
       
            
             

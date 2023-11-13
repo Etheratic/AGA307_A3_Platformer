@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GameBehaviour : MonoBehaviour
 {
+    protected static PlayerMovement _PM { get { return PlayerMovement.INSTANCE; } }
+
     // Start is called before the first frame update
     void Start()
     {
