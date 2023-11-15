@@ -5,8 +5,12 @@ using UnityEngine;
 
 public class MovingPlatforms : GameBehaviour
 {
+
     public Transform[] moveToPos;
     public GameObject[] movingPlatforms;
+
+    public Transform[] MoveToPos;
+   
 
     // Start is called before the first frame update
     void Start()
@@ -20,8 +24,5 @@ public class MovingPlatforms : GameBehaviour
         
     }
 
-    IEnumerator Move()
-    {
-        
-    }
+   
 }
