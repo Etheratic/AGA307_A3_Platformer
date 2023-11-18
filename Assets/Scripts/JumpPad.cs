@@ -10,6 +10,7 @@ public class JumpPad : GameBehaviour
     private Vector3 velocity;
     public float gravity = -9.81f;
 
+
    
 
     // Start is called before the first frame update
@@ -29,7 +30,7 @@ public class JumpPad : GameBehaviour
         print("Working :)");
         _PM.Jump(jumpBoostStrength);
 
-        Destroy(this.gameObject);
+        
     }
 
         
