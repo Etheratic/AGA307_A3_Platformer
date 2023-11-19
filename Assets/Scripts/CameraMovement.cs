@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraMovement : GameBehaviour
+public class CameraMovement : Singleton<CameraMovement>
 {
     public Transform moveToPos;
     public float cameraSpeed = 1;
     public float cameraSpeedMultiplier;
+
+
   
 
 
@@ -29,23 +31,40 @@ public class CameraMovement : GameBehaviour
             
     }
 
-    public void CameraMoveUp()
-    {
-        StartCoroutine(MoveUp());
+    //public void CameraMoveUp()
+    //{
+      
+            
+    //    StartCoroutine(MoveUp());
+        
+
     }
 
-    IEnumerator MoveUp()
-    {
-        while (Vector3.Distance(transform.position, moveToPos.position) > .3f)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, moveToPos.position, Time.deltaTime * cameraSpeed);
-            yield return null;
-        }
-        yield return new WaitForSeconds(1);
-        StartCoroutine(MoveUp());
+    //IEnumerator MoveUp()
+    //{
         
-    }
+
+
+    //    while (Vector3.Distance(transform.position, moveToPos.position) > .3f)
+    //    {
+    //        transform.position = Vector3.MoveTowards(transform.position, moveToPos.position,  cameraSpeed);
+    //        yield return null;
+    //    }
+    //    yield return new WaitForSeconds(1);
+
+
+    //    if (Vector3.Distance(transform.position, moveToPos.position) > .3f)
+    //        StartCoroutine(MoveUp());
+
+    //    else
+    //        StopAllCoroutines();
+        
+
+
 
 
     
-}
+
+
+    
+

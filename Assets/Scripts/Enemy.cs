@@ -31,11 +31,13 @@ public class Enemy : GameBehaviour
             case EnemyType.Flying:
                 speed = baseSpeed * 2;
                 myScore = 5;
+                moveToPos = _EM.GetRandomAirSpawnPoint();
                 break;
 
             case EnemyType.Ground:
                 speed = baseSpeed;
                 myScore = 10;
+                moveToPos = _EM.GetRandomGroundSpawnPoint();
                 break;
 
         }
@@ -43,23 +45,23 @@ public class Enemy : GameBehaviour
     }
 
 
-    public void Hit(int _damage)
-    {
-        myHealth -= _damage;
+    //public void Hit(int _damage)
+    //{
+    //    myHealth -= _damage;
 
-        _GM.AddScore(myScore);
-        GetComponent<Renderer>().material.color = Color.red;
+    //    _GM.AddScore(myScore);
+    //    //GetComponent<Renderer>().material.color = Color.red;
 
-        if(myHealth <= 0)
-        {
-            Die();
-        }
-        else
-        {
-            OnEnemyHit?.Invoke(this.gameObject);
+    //    if(myHealth <= 0)
+    //    {
+    //        Die();
+    //    }
+    //    else
+    //    {
+    //        OnEnemyHit?.Invoke(this.gameObject);
          
-        }
-    }
+    //    }
+    //}
     
     public void Die()
     {
@@ -79,11 +81,23 @@ public class Enemy : GameBehaviour
 
     IEnumerator Move()
     {
-        moveToPos = _EM.GetRandomSpawnPoint();
+
+
+        switch (myType)
+        {
+            case EnemyType.Flying:
+                moveToPos = _EM.GetRandomAirSpawnPoint();
+                break;
+
+            case EnemyType.Ground:
+                moveToPos = _EM.GetRandomGroundSpawnPoint();
+                break;
+
+        }
 
 
 
-        while(Vector3.Distance(transform.position, moveToPos.position) > 0.1f)
+        while (Vector3.Distance(transform.position, moveToPos.position) > 0.1f)
         {
             transform.position = Vector3.MoveTowards(transform.position, moveToPos.position, Time.deltaTime * speed);
             yield return null;
@@ -95,7 +109,7 @@ public class Enemy : GameBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.collider.CompareTag("Player"))
-            Hit(1);
+            //Hit(1);
         print("hit");
     }
 }

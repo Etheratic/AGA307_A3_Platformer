@@ -11,6 +11,8 @@ public class PlayerMovement : Singleton<PlayerMovement>
     public float gravity = -9.81f;
     public float jumpHeight = 3f;
     public GameObject player;
+    public float dashSpeed = 100;
+    public float dashLength = 1;
 
     //know when we are touching the ground
     public Transform groundCheck;
@@ -18,7 +20,8 @@ public class PlayerMovement : Singleton<PlayerMovement>
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
 
-
+    public Transform myChildObject;
+    public bool detachChild;
 
     public Vector3 velocity;
     public bool isGrounded;
@@ -30,7 +33,7 @@ public class PlayerMovement : Singleton<PlayerMovement>
 
     private void Start()
     {
-       
+       // gameObject.tag = "player";
     }
 
     void Update()
@@ -47,7 +50,7 @@ public class PlayerMovement : Singleton<PlayerMovement>
            
 
         if(velocity.y < -50)
-            velocity.y = -2f;
+            velocity.y = -10f;
 
         //checks input for player
         float x = Input.GetAxis("Horizontal");
@@ -62,11 +65,17 @@ public class PlayerMovement : Singleton<PlayerMovement>
         if (isGrounded == false)
             velocity.y += gravity * Time.deltaTime;
 
+        if (Input.GetKeyDown(KeyCode.Mouse1))
+            StartCoroutine(Dash());
+
 
         
         controller.Move(velocity * Time.deltaTime);
 
-       
+       if(detachChild == true)
+        {
+            myChildObject.parent = null;
+        }
             
 
 
@@ -85,6 +94,29 @@ public class PlayerMovement : Singleton<PlayerMovement>
             print("collision");
             velocity.y = 0;
         }
+    }
+
+    IEnumerator Dash()
+    {
+        speed = speed * dashSpeed;
+        yield return new WaitForSeconds(dashLength);
+        speed = speed / dashSpeed;
+
+
+    }
+
+    public void KnockBack()
+    {
+        StartCoroutine(Back());
+    }
+
+    IEnumerator Back()
+    {
+        speed = speed * -dashSpeed;
+        yield return new WaitForSeconds(dashLength);
+        speed = speed / -dashSpeed;
+
+
     }
 
 

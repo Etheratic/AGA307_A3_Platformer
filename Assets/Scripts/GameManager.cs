@@ -14,6 +14,7 @@ public class GameManager : Singleton<GameManager>
     public int coinCounter;
 
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,19 +30,20 @@ public class GameManager : Singleton<GameManager>
     public void AddCoin()
     {
         coinCounter += 1;
+        _UI.UpdateScore(coinCounter);
     }
 
-    public void AddScore(int _points)
-    {
-        score += _points + coinCounter;
+    //public void AddScore(int _points)
+    //{
+    //    score += _points + coinCounter;
 
-    }
+    //}
 
     private void OnEnemyHit(GameObject _enemy)
     {
         int _score = _enemy.GetComponent<Enemy>().myScore;
 
-        AddScore(_score);
+        //AddScore(_score);
     }
     private void OnEnable()
     {
